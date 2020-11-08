@@ -1,14 +1,16 @@
 package main
 
 import (
-	"fmt"
-	//"bytes";
+	"encoding/base64"
 	"encoding/hex"
+	"errors"
 )
 
-func main() {
-	//h := []byte("4927")
-	fmt.Println(hex.DecodeString("4927"))
-	fmt.Println([]byte("I'"))
-	// omg I'm decoding the characters in the string to bytes
+func HexStringToBase64String(hexString string) (string, error) {
+	theBytes, err := hex.DecodeString(hexString)
+	if err != nil {
+		return "", errors.New("There was an error decoding the hex string")
+	}
+	base64String := base64.StdEncoding.EncodeToString(theBytes)
+	return base64String, nil
 }
